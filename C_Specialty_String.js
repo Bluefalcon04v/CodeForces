@@ -1,25 +1,24 @@
-// var input = require("fs").readFileSync(0, "utf8").trim().split(/\s+/);
+var input = require("fs").readFileSync(0, "utf8").trim().split(/\s+/);
 
-// var testCases = input[0];
-// var inp = 1;
+var testCases = input[0];
+var inp = 1;
 
-// for (let i = 0; i < testCases; i++) {
-//   let n = Number(input[inp++]);
-//   let s = input[inp++];
-//   console.log(SpecialStr(n, s));
-// }
+for (let i = 0; i < testCases; i++) {
+  let n = Number(input[inp++]);
+  let s = input[inp++];
+  console.log(SpecialStr(n, s));
+}
 
-// function SpecialStr(n, s) {
-//     if (n <= 1) return "NO"
-//     let arr = s.split("");
+function SpecialStr(n, s) {
+  let stack = [];
 
-//   while(i < n){
-//     if(arr[i] === arr[i+1] ) {
-//         arr[i] = "*"
-//         arr[i+1] = "*"
-//     }
-//     i++
-//   }
+  for (let i of s) {
+    if (stack.length && stack[stack.length - 1] == i) {
+      stack.pop();
+    } else {
+      stack.push(i);
+    }
+  }
 
-//   return arr.join("")
-// }
+  return stack.length ? "NO" : "YES";
+}
