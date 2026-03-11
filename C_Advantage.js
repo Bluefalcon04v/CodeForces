@@ -1,39 +1,33 @@
 var input = require("fs").readFileSync(0, "utf8").trim().split(/\s+/);
-
-var t = input[0];
+var testCases = input[0];
 var inp = 1;
-
-for (let i = 0; i < t; i++) {
+for (let i = 0; i < testCases; i++) {
   let n = Number(input[inp++]);
   let arr = [];
-  for (let j = 0; j < n; j++) {
+  for (let i = 0; i < n; i++) {
     arr.push(Number(input[inp++]));
   }
-  console.log(advantage(n, arr));
+  console.log(advantage(arr, n));
 }
 
-function advantage(n, arr) {
-  let max = 0;
-  let sec = -1;
+function advantage(nums, n) {
+  let largest = 0;
+  let second = -1;
   for (let i = 1; i < n; i++) {
-    if (arr[i] > arr[max]) {
-      sec = max;
-      max = i;
-    } else if (i !== max && (sec === -1 || arr[i] > arr[sec])) {
-      sec = i;
+    if (nums[i] > nums[largest]) {
+      second = largest;
+      largest = i;
+    } else if (second === -1 || nums[i] > nums[second]) {
+      second = i;
     }
   }
-
-  let maxElem = arr[max];
-  let secElem = arr[sec];
-
+  let res = [];
   for (let i = 0; i < n; i++) {
-    if (i === max) {
-      arr[i] = maxElem - secElem;
+    if (i === largest) {
+      res[i] = nums[largest] - nums[second];
     } else {
-      arr[i] = arr[i] - maxElem;
+      res[i] = nums[i] - nums[largest];
     }
   }
-
-  return arr.join(" ");
+  return res.join(" ");
 }
