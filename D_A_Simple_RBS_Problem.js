@@ -7,4 +7,4 @@ while (t--) {
   let arr2 = input[index++].split("");
 
   console.log({ n, arr1, arr2 });
-}
+} 
