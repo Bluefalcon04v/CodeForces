@@ -1,12 +1,16 @@
-import sys
+import sys 
 input = sys.stdin.read().strip()
 
-can_change = True 
-for i in range(1, len(input)):
+map = {}
+for i in range(0, len(input)):
     if input[i].islower():
-        can_change = False
-        break
-    if can_change:
-         input = input.swapcase()
+       map[i] = input[i]
 
-print(input)
+if len(map) == 0:
+    ans  = input.swapcase()
+    print(ans)
+elif input[0].islower() and len(map) == 1:
+    ans = input[0].swapcase() + input[1:].swapcase()
+    print(ans)
+else:
+    print(input)
