@@ -1,25 +1,28 @@
-// const input = require('fs').readFileSync(0, 'utf8').trim().split(/\s+/);
-// let test_cases = input[0]
-// let i = 1
-// let map = {}
-// for(let t = 0; t < test_cases; t++){
-//     let name = input[i++]
-//     let score = Number(input[i++])
-//     map[name] = [(map[name]?.[0] ?? 0) + score, map[name]?.[1] ?? t]
-// }
+const fs = require('fs')
+const input = fs.readFileSync(0, 'utf8').trim().split(/\s+/);
 
-// let curr_max_score = 0
-// let curr_name 
-// let index 
-// for(let i in map){
-//     if (map[i][0] > curr_max_score) {
-//         curr_max_score = map[i][0];
-//         curr_name = i;
-//         index = map[i][1];
-//     } else if (map[i][0] === curr_max_score && i < curr_name) {
-//         curr_name = i;
-//         index = map[i][1];
-//     }
-// }
+let testCases = Number(input[0])
+let scoreMap = new Map()
 
-// console.log(curr_name)
+let rounds= []
+for (let i = 0; i < testCases; i++) {
+    const name = input[1 + i * 2];
+    const score = Number(input[2 + i * 2]);
+    rounds.push([name, score])
+    scoreMap.set(name, (scoreMap.get(name) || 0) + score)
+    
+}
+
+let maxScore = -Infinity
+for(let score of scoreMap.values()){
+    maxScore = Math.max(score, maxScore)
+}
+
+let currScoreMap = new Map()
+for (let [name, score] of rounds){
+    currScoreMap.set(name, (currScoreMap.get(name) || 0 ) + score)
+    if (currScoreMap.get(name) >= maxScore && scoreMap.get(name) === maxScore){
+        console.log(name)
+        break;
+    }
+}
